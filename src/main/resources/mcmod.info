@@ -1,0 +1,16 @@
+[
+    {
+        "modid": "pitpresence",
+        "name": "PitPresence",
+        "description": "Adds a cool Discord Rich Presence for the Hypixel Pit.",
+        "version": "1.0",
+        "mcversion": "1.8.9",
+        "url": "https://github.com/Antonio32A/PitPresence",
+        "updateUrl": "",
+        "authorList": ["Antonio32A"],
+        "credits": "Forge, FML, DJtheRedstoner, biscuut, jagrosh and Sk1er LLC.",
+        "logoFile": "",
+        "screenshots": [],
+        "dependencies": []
+    }
+]
