@@ -38,11 +38,11 @@ public class PitHandler {
     @Getter private String status;
     @Getter private String bounty;
     @Getter private String streak;
-    @Getter private Integer playtime;
-    @Getter private String xpProgress;
-    @Getter private String goldProgress;
-    @Getter private String renownProgress;
-    @Getter private String kdr;
+    @Getter private Integer playtime = 0;
+    @Getter private String xpProgress = "0/0";
+    @Getter private String goldProgress = "0/0";
+    @Getter private String renownProgress = "0/0";
+    @Getter private String kdr = "0.0";
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
