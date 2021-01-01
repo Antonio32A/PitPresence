@@ -50,7 +50,12 @@ public class PresenceUpdater {
                 .replace("${STATUS}", pitHandler.getStatus())
                 .replace("${BOUNTY}", pitHandler.getBounty())
                 .replace("${STREAK}", pitHandler.getStreak())
-                .replace("${NAME}", minecraft.thePlayer.getName());
+                .replace("${NAME}", minecraft.thePlayer.getName())
+                .replace("${PLAYTIME}", pitHandler.getPlaytime() / 60 + "h")
+                .replace("${XPPROGRESS}", pitHandler.getXpProgress())
+                .replace("${GOLDPROGRESS}", pitHandler.getGoldProgress())
+                .replace("${RENOWNPROGRESS}", pitHandler.getRenownProgress())
+                .replace("${KDR}", pitHandler.getKdr());
         return text;
     }
 }

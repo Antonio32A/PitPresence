@@ -1,5 +1,8 @@
 package tech.antonio32a.pitpresence.utils;
 
+import club.sk1er.mods.core.util.Multithreading;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.scoreboard.Score;
@@ -9,13 +12,22 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public class PitHandler {
     private int tickCounter = 0;
+    private String pitPanda = "https://pitpanda.rocks/api/players/";
     @Getter private Boolean inPit = false;
     @Getter private String date;
     @Getter private String lobby;
@@ -26,6 +38,11 @@ public class PitHandler {
     @Getter private String status;
     @Getter private String bounty;
     @Getter private String streak;
+    @Getter private Integer playtime;
+    @Getter private String xpProgress;
+    @Getter private String goldProgress;
+    @Getter private String renownProgress;
+    @Getter private String kdr;
 
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
@@ -36,6 +53,7 @@ public class PitHandler {
         else
             return;
 
+        fetchPitData();
         World world = Minecraft.getMinecraft().theWorld;
         if (world == null) return;
         Scoreboard scoreboard = world.getScoreboard();
@@ -109,5 +127,43 @@ public class PitHandler {
                     break;
             }
         }
+    }
+
+    private void fetchPitData() {
+        Multithreading.runAsync(() -> {
+            CloseableHttpClient httpclient = HttpClients.createDefault();
+            HttpGet httpGet = new HttpGet(pitPanda + Minecraft.getMinecraft().thePlayer.getName());
+
+            try {
+                CloseableHttpResponse response = httpclient.execute(httpGet);
+                InputStream content = response.getEntity().getContent();
+
+                BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+                StringBuilder text = new StringBuilder();
+
+                String output;
+                while ((output = buffer.readLine()) != null) {
+                    text.append(output);
+                }
+
+                JsonObject json = new Gson().fromJson(String.valueOf(text), JsonObject.class);
+                if (!json.get("success").getAsBoolean())
+                    return;
+
+                JsonObject data = json.get("data").getAsJsonObject();
+                playtime = data.get("playtime").getAsInt();
+                xpProgress = data.get("xpProgress").getAsJsonObject().get("description").getAsString();
+                goldProgress = data.get("goldProgress").getAsJsonObject().get("description").getAsString();
+                renownProgress = data.get("renownProgress").getAsJsonObject().get("description").getAsString();
+                kdr = round(data.get("doc").getAsJsonObject().get("kdr").getAsDouble());
+            } catch (IOException error) {
+                error.printStackTrace();
+            }
+        });
+    }
+
+    private static String round (double value) {
+        int scale = (int) Math.pow(10, 1);
+        return String.format("%.1f", Math.floor(value * scale) / scale);
     }
 }

@@ -13,28 +13,28 @@ public class Config extends Vigilant {
             name = "Details",
             category = "General"
     )
-    public String details = "[${PRESTIGE}-${LEVEL}] ${NAME} | ${STATUS}";
+    public String details = "LVL: ${LEVEL} | ${GOLDPROGRESS}";
 
     @Property(
             type = PropertyType.TEXT,
             name = "State",
             category = "General"
     )
-    public String state = "Streak: ${STREAK} | Bounty: ${BOUNTY}";
+    public String state = "${STATUS}: ${STREAK}";
 
     @Property(
             type = PropertyType.TEXT,
             name = "Large Image Text",
             category = "General"
     )
-    public String largeImageText = "${GOLD} | ${NEEDEDXP} XP left";
+    public String largeImageText = "[${PRESTIGE}-${LEVEL}] ${NAME}";
 
     @Property(
             type = PropertyType.TEXT,
             name = "Small Image Text",
             category = "General"
     )
-    public String smallImageText = "${STATUS} | ${LOBBY} | ${DATE}";
+    public String smallImageText = "Playtime: ${PLAYTIME} | KDR: ${KDR}";
 
     public Config() {
         super(new File(PitPresence.configLocation));

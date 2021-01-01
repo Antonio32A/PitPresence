@@ -39,8 +39,14 @@ You put these in the `/pitpresence` command.
 - `${BOUNTY}` current bounty, `5000g`
 - `${STREAK}` current killstreak, `1337.0`
 - `${NAME}` account username, `Antonio32A`
+- `${PLAYTIME}` pit playtime in hours, `72h`
+- `${XPPROGRESS}` current prestige xp progress, `6.9k/32.32k`
+- `${GOLDPROGRESS}` current prestige gold progress, `42.0k/42.0k`
+- `${RENOWNPROGRESS}` amount of renown shop items unlocked, `32/420`
+- `${KDR}` kill and death ratio, `32.0`
 
 ## Credits
-- https://github.com/jagrosh/
+- https://github.com/jagrosh
+- https://github.com/DJtheRedstoner
+- https://pitpanda.rocks
 - https://sk1er.club/modcore
-- https://github.com/DJtheRedstoner/

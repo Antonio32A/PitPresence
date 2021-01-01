@@ -20,7 +20,7 @@ import tech.antonio32a.pitpresence.utils.PresenceUpdater;
 @Mod(modid = PitPresence.MODID, version = PitPresence.VERSION)
 public class PitPresence {
     public static final String MODID = "pitpresence";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.1";
     public static final String configLocation = "./config/pitpresence.toml";
     public static final Long clientId = 793558849247641642L;
 
