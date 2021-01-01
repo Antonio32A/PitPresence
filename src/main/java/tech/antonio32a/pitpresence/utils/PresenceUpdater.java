@@ -41,21 +41,28 @@ public class PresenceUpdater {
         PitHandler pitHandler = PitPresence.getInstance().getPitHandler();
         Minecraft minecraft = Minecraft.getMinecraft();
 
-        text = text.replace("${DATE}", pitHandler.getDate())
-                .replace("${LOBBY}", pitHandler.getLobby())
-                .replace("${PRESTIGE}", pitHandler.getPrestige())
-                .replace("${LEVEL}", pitHandler.getLevel())
-                .replace("${NEEDEDXP}", pitHandler.getNeededXP())
-                .replace("${GOLD}", pitHandler.getGold())
-                .replace("${STATUS}", pitHandler.getStatus())
-                .replace("${BOUNTY}", pitHandler.getBounty())
-                .replace("${STREAK}", pitHandler.getStreak())
-                .replace("${NAME}", minecraft.thePlayer.getName())
-                .replace("${PLAYTIME}", pitHandler.getPlaytime() / 60 + "h")
-                .replace("${XPPROGRESS}", pitHandler.getXpProgress())
-                .replace("${GOLDPROGRESS}", pitHandler.getGoldProgress())
-                .replace("${RENOWNPROGRESS}", pitHandler.getRenownProgress())
-                .replace("${KDR}", pitHandler.getKdr());
-        return text;
+        try {
+            text = text.replace("${DATE}", pitHandler.getDate())
+                    .replace("${LOBBY}", pitHandler.getLobby())
+                    .replace("${PRESTIGE}", pitHandler.getPrestige())
+                    .replace("${LEVEL}", pitHandler.getLevel())
+                    .replace("${NEEDEDXP}", pitHandler.getNeededXP())
+                    .replace("${GOLD}", pitHandler.getGold())
+                    .replace("${STATUS}", pitHandler.getStatus())
+                    .replace("${BOUNTY}", pitHandler.getBounty())
+                    .replace("${STREAK}", pitHandler.getStreak())
+                    .replace("${NAME}", minecraft.thePlayer.getName())
+                    .replace("${PLAYTIME}", pitHandler.getPlaytime() / 60 + "h")
+                    .replace("${XPPROGRESS}", pitHandler.getXpProgress())
+                    .replace("${GOLDPROGRESS}", pitHandler.getGoldProgress())
+                    .replace("${RENOWNPROGRESS}", pitHandler.getRenownProgress())
+                    .replace("${KDR}", pitHandler.getKdr());
+            return text;
+        } catch (NullPointerException error) {
+            error.printStackTrace();
+            ChatLib.chat("&cAn error has occurred while parsing the text.");
+            ChatLib.chat("&cPlease contact Antonio32A for help with the latest log file.");
+            return text;
+        }
     }
 }
